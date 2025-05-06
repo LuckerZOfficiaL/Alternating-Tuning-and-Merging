@@ -74,7 +74,7 @@ def get_labels(labels):
         if "atm" in l:
             order = int(l.split(' ')[-1])
             new_labels.append(
-                f"{num_to_cardinality(order)} order" if order in [10] else " "
+                f"{num_to_cardinality(order)} iter" if order in [10] else " "
             )
         else:
             new_labels.append(" ")
@@ -85,8 +85,10 @@ from matplotlib.lines import Line2D
 
 def get_legend_handles():
 
-    colors = ["#000000", "#ffbe0b", "#3a86ff", "#fb5607", "#8338ec", "#ff006e", "#02c39a"]
-    labels = ["Pre-trained", "Task Arithmetic", "TIES-merging", "Model Breadcrumbs", "DARE", "PA-ATM", "PH-ATM"]
+    # colors = ["#000000",             "#ffbe0b",      "#3a86ff",           "#fb5607", "#8338ec", "#ff006e", "#02c39a"]
+    # labels = ["Pre-trained", "Task Arithmetic", "TIES-merging", "Model Breadcrumbs",    "DARE",  "PA-ATM",  "PH-ATM"]
+    colors = ["#000000",             "#8cb369",      "#f4e285",           "#f4a259", "#5b8e7d",      "#bc4b51"]
+    labels = ["Pre-trained", "Task Arithmetic", "TIES-merging", "Model Breadcrumbs",    "DARE", "Iterative TA"]
 
     legend_handles = [
         Line2D(
@@ -111,30 +113,44 @@ def labels_to_colors(labels):
     # Define a color for each label.
     label_to_color = {
         "zeroshot": "#000000",
-        "ta": "#ffbe0b",
-        "ties": "#3a86ff",
-        "breadcrumbs": "#fb5607",
-        "dare": "#8338ec",
-        "atm-true order 1": "#ff006e",
-        "atm-true order 2": "#ff006e",
-        "atm-true order 3": "#ff006e",
-        "atm-true order 4": "#ff006e",
-        "atm-true order 5": "#ff006e",
-        "atm-true order 6": "#ff006e",
-        "atm-true order 7": "#ff006e",
-        "atm-true order 8": "#ff006e",
-        "atm-true order 9": "#ff006e",
-        "atm-true order 10": "#ff006e",
-        "atm-denoise order 1": "#02c39a",
-        "atm-denoise order 2": "#02c39a",
-        "atm-denoise order 3": "#02c39a",
-        "atm-denoise order 4": "#02c39a",
-        "atm-denoise order 5": "#02c39a",
-        "atm-denoise order 6": "#02c39a",
-        "atm-denoise order 7": "#02c39a",
-        "atm-denoise order 8": "#02c39a",
-        "atm-denoise order 9": "#02c39a",
-        "atm-denoise order 10": "#02c39a"
+        # "ta": "#ffbe0b",
+        "ta": "#8cb369",
+        # "ties": "#3a86ff",
+        "ties": "#f4e285",
+        # "breadcrumbs": "#fb5607",
+        "breadcrumbs": "#f4a259",
+        # "dare": "#8338ec",
+        "dare": "#5b8e7d",
+        # "atm-true order 1": "#ff006e",
+        # "atm-true order 2": "#ff006e",
+        # "atm-true order 3": "#ff006e",
+        # "atm-true order 4": "#ff006e",
+        # "atm-true order 5": "#ff006e",
+        # "atm-true order 6": "#ff006e",
+        # "atm-true order 7": "#ff006e",
+        # "atm-true order 8": "#ff006e",
+        # "atm-true order 9": "#ff006e",
+        # "atm-true order 10": "#ff006e",
+        "atm-true order 1": "#bc4b51",
+        "atm-true order 2": "#bc4b51",
+        "atm-true order 3": "#bc4b51",
+        "atm-true order 4": "#bc4b51",
+        "atm-true order 5": "#bc4b51",
+        "atm-true order 6": "#bc4b51",
+        "atm-true order 7": "#bc4b51",
+        "atm-true order 8": "#bc4b51",
+        "atm-true order 9": "#bc4b51",
+        "atm-true order 10": "#bc4b51",
+        # "atm-denoise order 1": "#02c39a",
+        # "atm-denoise order 2": "#02c39a",
+        # "atm-denoise order 3": "#02c39a",
+        # "atm-denoise order 4": "#02c39a",
+        # "atm-denoise order 5": "#02c39a",
+        # "atm-denoise order 6": "#02c39a",
+        # "atm-denoise order 7": "#02c39a",
+        # "atm-denoise order 8": "#02c39a",
+        # "atm-denoise order 9": "#02c39a",
+        # "atm-denoise order 10": "#02c39a"
     }
     
     # Map each label to its corresponding color.
@@ -153,11 +169,21 @@ def main():
 
     pprint(atm_trajectory_embeddings, expand_all=True)
 
+    print(atm_trajectory_embeddings.keys())
+
+    # exclude keys if they contain "atm-denoise"
+    atm_trajectory_embeddings = {
+        k: v for k, v in atm_trajectory_embeddings.items() if "atm-denoise" not in k
+    }
+
+    print(atm_trajectory_embeddings.keys())
+
     plot_2d_embeddings(
         embeddings=list(atm_trajectory_embeddings.values()),
         labels=get_labels(list(atm_trajectory_embeddings.keys())),
         colors=labels_to_colors(list(atm_trajectory_embeddings.keys())),
-        file_path="plots/pca_trajectory/pca_trajectory.png",
+        # file_path="plots/pca_trajectory/pca_trajectory_new.png",
+        file_path="plots/pca_trajectory/pca_trajectory_new.pdf",
         label_offset=(-30, -5),
         legend_handles=get_legend_handles()
     )

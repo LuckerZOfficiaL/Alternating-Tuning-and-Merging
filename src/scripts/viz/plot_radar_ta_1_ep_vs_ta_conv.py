@@ -101,8 +101,10 @@ def main():
     EPOCHS = ["1", "CONVERGENCE"]
     LABELS = ["TA 1 epoch", "TA convergence epochs"]
     COLORS_DICT = {
-        "1": "#ffbe0b",
-        "CONVERGENCE": "#ff006e"
+        # "1": "#ffbe0b",
+        # "CONVERGENCE": "#ff006e"
+        "1": "#bc4b51",
+        "CONVERGENCE": "#8cb369"
     }
 
     eval_res = {}
@@ -120,7 +122,8 @@ def main():
     pprint(eval_res, expand_all=True)
 
 
-    export_file_path = f"./plots/ta_1_ep_vs_ta_conv/ta_1_ep_vs_ta_conv.png"
+    # export_file_path = f"./plots/ta_1_ep_vs_ta_conv/ta_1_ep_vs_ta_conv.png"
+    export_file_path = f"./plots/ta_1_ep_vs_ta_conv/ta_1_ep_vs_ta_conv.pdf"
     os.makedirs(os.path.dirname(export_file_path), exist_ok=True)
     radar_plot(
         data=eval_res,

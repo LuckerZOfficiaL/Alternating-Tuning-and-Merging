@@ -64,14 +64,14 @@ def main():
         "ties": "TIES-merging",
         "bc": "Model Breadcrumbs",
         "dare": "DARE",
-        "atm": "PA-ATM"
+        "atm": "Iterative Task Arithmetic"
     }
     METHODS_TO_COLORS = {
-        "ta": "#ffbe0b",
-        "ties": "#3a86ff",
-        "bc": "#fb5607",
-        "dare": "#8338ec",
-        "atm": "#ff006e"
+        "ta": "#8cb369",
+        "ties": "#f4e285",
+        "bc": "#f4a259",
+        "dare": "#5b8e7d",
+        "atm": "#bc4b51"
     }
 
     data_dict = {}
@@ -107,7 +107,8 @@ def main():
 
     pprint(data_dict, expand_all=True)
 
-    export_path = f"plots/budget_vs_avg_norm_merged_acc/budget_vs_avg_norm_merged_acc.png"
+    # export_path = f"plots/budget_vs_avg_norm_merged_acc/budget_vs_avg_norm_merged_acc.png"
+    export_path = f"plots/budget_vs_avg_norm_merged_acc/budget_vs_avg_norm_merged_acc.pdf"
     os.makedirs(os.path.dirname(export_path), exist_ok=True)
 
     plot_lines(
